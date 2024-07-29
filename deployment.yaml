@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ip-logger
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: ip-logger-app
+  template:
+    metadata:
+      labels:
+        app: ip-logger-app
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - ip-logger-app
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: app-container
+        image: herklos/ip-logger
