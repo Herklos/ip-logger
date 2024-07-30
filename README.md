@@ -13,6 +13,8 @@ docker run --rm ip-logger
 ```
 
 ## To create one pod on each node in your Kubernetes cluster
+Update `replicas` value.
+
 ```
 kubectl apply -f deployment.yaml
 ```
